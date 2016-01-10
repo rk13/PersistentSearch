@@ -87,6 +87,10 @@ public class SearchBox extends RelativeLayout {
 	private ArrayAdapter<? extends SearchResult> mAdapter;
 
 
+	private View viewCard;
+	private ListView lvCardResults;
+	private ArrayList<SearchResult> cardResults;
+	private ArrayAdapter<? extends SearchResult> mCardAdapter;
 
     /**
 	 * Create a new searchbox
@@ -120,6 +124,8 @@ public class SearchBox extends RelativeLayout {
 		this.logo = (TextView) findViewById(R.id.logo);
 		this.search = (EditText) findViewById(R.id.search);
 		this.results = (ListView) findViewById(R.id.results);
+		this.viewCard = findViewById(R.id.card_rfl);
+		this.lvCardResults = (ListView) findViewById(R.id.card_results);
 		this.context = context;
 		this.pb = (ProgressBar) findViewById(R.id.pb);
 		this.mic = (ImageView) findViewById(R.id.mic);
@@ -140,7 +146,9 @@ public class SearchBox extends RelativeLayout {
 
 		});
 		resultList = new ArrayList<SearchResult>();
+		cardResults = new ArrayList<SearchResult>();
         setAdapter(new SearchAdapter(context, resultList, search));
+		setCardAdapter(new SearchAdapter(context, cardResults, search));
         animate = true;
 		isVoiceRecognitionIntentSupported = isIntentAvailable(context, new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH));
 		logo.setOnClickListener(new OnClickListener() {
@@ -513,7 +521,18 @@ public class SearchBox extends RelativeLayout {
 	public void setInitialResults(ArrayList<SearchResult> results){
 		this.initialResults = results;
 	}
-	
+
+	/***
+	 *
+	 * Set the card results that are always displayed
+	 * @param results Results
+	 */
+	public void setCardResults(ArrayList<SearchResult> results){
+		cardResults.clear();
+		cardResults.addAll(results);
+		mCardAdapter.notifyDataSetChanged();
+	}
+
 	/***
 	 * Set whether the menu button should be shown. Particularly useful for apps that adapt to screen sizes
 	 * @param visibility Whether to show
@@ -626,6 +645,11 @@ public class SearchBox extends RelativeLayout {
         mAdapter = adapter;
         results.setAdapter(adapter);
     }
+
+	public void setCardAdapter(ArrayAdapter<? extends SearchResult> adapter) {
+		mCardAdapter = adapter;
+		lvCardResults.setAdapter(adapter);
+	}
 
 	/***
 	 * Set the searchbox's current text manually
@@ -807,7 +831,9 @@ public class SearchBox extends RelativeLayout {
 		}else{
 			updateResults();
 		}
-		
+
+		updateCardResults();
+
 		if (listener != null)
 			listener.onSearchOpened();
 		if (getSearchText().length() > 0) {
@@ -840,7 +866,14 @@ public class SearchBox extends RelativeLayout {
 		}
 	}
 
-	
+
+	private void updateCardResults(){
+		if (cardResults == null || cardResults.isEmpty()) {
+			viewCard.setVisibility(View.GONE);
+		} else {
+			viewCard.setVisibility(View.VISIBLE);
+		}
+	}
 
 	
 
@@ -852,6 +885,7 @@ public class SearchBox extends RelativeLayout {
 		this.logo.setVisibility(View.VISIBLE);
 		this.search.setVisibility(View.GONE);
 		this.results.setVisibility(View.GONE);
+		this.viewCard.setVisibility(View.GONE);
 		if (tint != null && rootLayout != null) {
 			rootLayout.removeView(tint);
 		}
