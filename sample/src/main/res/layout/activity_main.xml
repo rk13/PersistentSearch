@@ -1,18 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.quinny898.library.persistentsearch.sample.MainActivity" >
+    android:background="@drawable/background_optimized">
 
-    <Button
-        android:id="@+id/revealactivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:layout_centerHorizontal="true"
-        android:onClick="reveal"
-        android:text="Reveal Activity" />
-    
     <com.quinny898.library.persistentsearch.SearchBox
         android:layout_width="wrap_content"
         android:id="@+id/searchbox"
@@ -20,4 +12,38 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
-</RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_layout" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/underlying_layout" >
+
+            <Button
+                android:id="@+id/revealactivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="96dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="reveal"
+                android:text="Reveal Activity" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#88666666"
+            android:id="@+id/top_layout"
+            android:orientation="vertical">
+
+            <!--Put the parts of the layout here,
+            what should be on top of your activity 88666666-->
+
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

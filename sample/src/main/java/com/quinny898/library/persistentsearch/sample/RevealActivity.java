@@ -1,6 +1,9 @@
 package com.quinny898.library.persistentsearch.sample;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
@@ -66,9 +69,12 @@ public class RevealActivity extends ActionBarActivity {
 		});
 		search.setSearchListener(new SearchListener() {
 
+			@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 			@Override
 			public void onSearchOpened() {
 				// Use this to tint the screen
+				search.setBackgroundTintMode(PorterDuff.Mode.DARKEN);
+
 
 			}
 
