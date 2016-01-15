@@ -512,22 +512,23 @@ public class SearchBox extends RelativeLayout {
 	 * Force an update of the results
 	 */
 	public void updateResults() {
-		resultList.clear();
-		int count = 0;
-		for (int x = 0; x < searchables.size(); x++) {
-			SearchResult searchable = searchables.get(x);
+//		resultList.clear();
+//		int count = 0;
+//		for (int x = 0; x < searchables.size(); x++) {
+//			SearchResult searchable = searchables.get(x);
+//
+//			if(mSearchFilter.onFilter(searchable,getSearchText()) && count < 5) {
+//				addResult(searchable);
+//				count++;
+//			}
+//		}
+//		if (resultList.size() == 0) {
+//			results.setVisibility(View.GONE);
+//		} else {
+//			results.setVisibility(View.VISIBLE);
+//		}
 
-			if(mSearchFilter.onFilter(searchable,getSearchText()) && count < 5) {
-				addResult(searchable);
-				count++;
-			}
-		}
-		if (resultList.size() == 0) {
-			results.setVisibility(View.GONE);
-		} else {
-			results.setVisibility(View.VISIBLE);
-		}
-
+		mAdapter.getFilter().filter(getSearchText());
 	}
 	
 	/***
@@ -884,11 +885,13 @@ public class SearchBox extends RelativeLayout {
 	}
 
 
-	private void updateCardResults(){
-		if (cardResults == null || cardResults.isEmpty()) {
-			viewCard.setVisibility(View.GONE);
-		} else {
+	private void updateCardResults() {
+		if ((mCardAdapter != null && mCardAdapter.getCount() > 0)
+			|| (cardResults != null && cardResults.isEmpty()))
+		{
 			viewCard.setVisibility(View.VISIBLE);
+		} else {
+			viewCard.setVisibility(View.GONE);
 		}
 	}
 
