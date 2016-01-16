@@ -502,10 +502,10 @@ public class SearchBox extends RelativeLayout {
 	 * @param match Matches
 	 */
 	public void populateEditText(String match) {
-        toggleSearch();
+//        toggleSearch();
         String text = match.trim();
         setSearchString(text);
-        search(text);
+//        search(text);
     }
 	
 	/***
@@ -822,7 +822,7 @@ public class SearchBox extends RelativeLayout {
         animateDrawerLogo = show;
     }
 
-	private void openSearch(Boolean openKeyboard) {
+	public void openSearch(Boolean openKeyboard) {
         if(animateDrawerLogo){
             this.materialMenu.animateState(IconState.ARROW);
             this.drawerLogo.setVisibility(View.GONE);
