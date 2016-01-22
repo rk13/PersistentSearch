@@ -283,7 +283,7 @@ public class SearchBox extends RelativeLayout {
 				int[] location = new int[2];
 				menuButton.getLocationInWindow(location);
 				revealFrom((float) location[0], (float) location[1],
-                        activity, this);
+						activity, this);
 			}
 		}
 		revealedFromMenuItem = true;
@@ -328,28 +328,28 @@ public class SearchBox extends RelativeLayout {
 		animator.start();
 		animator.addListener(new SupportAnimator.AnimatorListener() {
 
-            @Override
-            public void onAnimationStart() {
+			@Override
+			public void onAnimationStart() {
 
-            }
+			}
 
-            @Override
-            public void onAnimationEnd() {
-                setVisibility(View.GONE);
+			@Override
+			public void onAnimationEnd() {
+				setVisibility(View.GONE);
 				revealedFromMenuItem = false;
-            }
+			}
 
-            @Override
-            public void onAnimationCancel() {
+			@Override
+			public void onAnimationCancel() {
 
-            }
+			}
 
-            @Override
-            public void onAnimationRepeat() {
+			@Override
+			public void onAnimationRepeat() {
 
-            }
+			}
 
-        });
+		});
 	}
 	
 	/***
@@ -590,9 +590,20 @@ public class SearchBox extends RelativeLayout {
 	 */
 	public void setMaxLength(int length) {
 		search.setFilters(new InputFilter[]{new InputFilter.LengthFilter(
-                length)});
+				length)});
 	}
-	
+
+	public void hideListDividers() {
+		if (results != null) {
+			results.setDividerHeight(0);
+			results.setDivider(null);
+		}
+		if (lvCardResults != null) {
+			lvCardResults.setDividerHeight(0);
+			lvCardResults.setDivider(null);
+		}
+	}
+
 	/***
 	 * Set the text of the logo (default text when closed)
 	 * @param text Text
